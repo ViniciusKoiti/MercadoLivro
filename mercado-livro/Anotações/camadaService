@@ -1,0 +1,4 @@
+A camada de Service que o Controller chama quando recebe uma requisição, ela tem a função de conhecer
+todas as regras de negocio da requisição
+
+é intermediaria entre a camada de controler e banco de dados

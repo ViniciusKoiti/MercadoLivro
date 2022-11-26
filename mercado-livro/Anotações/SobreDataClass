@@ -1,0 +1,2 @@
+Representar dados de uma forma estrututada, porém sem necessidade de definir
+toString,equals ou getters e e setters

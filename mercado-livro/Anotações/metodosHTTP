@@ -1,0 +1,14 @@
+A internet é baseada em requisições.
+
+Chamar a mesmo url através de diferentes metodos http teremos resultados diferentes
+
+GET - Buscar recursos especificos devem apenas recuperar dados
+
+POST - os dados vão no corpo da requisição e não na url, deve ser utilizado para criar algo
+
+PUT - os dados substituiu todas as atuais representações de destino pela carga de dados da requisição
+
+DELETE - O método DELETE remove um recurso espefico
+
+PATCH - O método PATCH é utilizado para aplicar modificações em um recurso.
+

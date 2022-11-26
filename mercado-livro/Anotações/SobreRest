@@ -1,0 +1,23 @@
+é uma forma de padronização de das apis
+*URLS
+- recurso devem estar no plural
+- Utilizamos hifén - em nomes compostos
+- Não deveriamos ter verbos basicos.
+- GET ex: users TODOS
+- GET ex /users/{id} espefico
+- POST sempre será utilizados no recurso raiz
+- PUT/DELETE e PATCH deve estar com identificação do recurso na URL
+ex : /users/{id}
+
+- POST/GET - /users/1/contract
+- GET/PUT/DELETE/PATCH - /users/1/contract/10
+- POST/GET - /item
+- GET/PUT/DELETE/PATCH - /item/84859/subtype/59875
+
+*ROTAS COM AÇÕES
+
+- PATCH - /users/1/approve
+- POST - /users/1456/contracts/1/sign
+- POST - /users/1456/rate
+
+UTILIZE UMA UNICA LINGUA POR FAVOR (INGLES/CHINESES/PORTUGUES/ESPANHOL)
