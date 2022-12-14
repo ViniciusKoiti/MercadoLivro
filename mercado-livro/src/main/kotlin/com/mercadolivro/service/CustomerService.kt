@@ -1,50 +1,51 @@
 package com.mercadolivro.service
 
-import com.mercadolivro.controller.request.PostCustomerRequest
-import com.mercadolivro.controller.request.PutCustomerRequest
 import com.mercadolivro.model.CustomerModel
+import com.mercadolivro.repository.CustomerRepository
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
 
 @Service
-class CustomerService {
+class CustomerService(
+        val customerRepository: CustomerRepository,
+        val bookService: BookService
+        ) {
 
-    val customers = mutableListOf<CustomerModel>()
 
     fun getAll(name:String?): List<CustomerModel> {
-
         name?.let{
-            return customers.filter{ it.name.contains(name,ignoreCase = true)}
+            customerRepository.findByNameContaining(name)
         }
 
-        return customers;
+        return customerRepository.findAll().toList()
+
     }
 
     fun create(customer: CustomerModel){
-
-        val id = if(customers.isEmpty()){
-            1;
-        } else{
-            customers.last().id!! + 1;
-        }
-
-        customers.add(CustomerModel(id,customer.name,customer.email));
+        customerRepository.save(customer)
     }
 
-    fun getCustomer(id:Int):CustomerModel{
-        return customers.filter{ it.id == id }.first();
+    fun getCustomerById(id:Int):CustomerModel{
+        return customerRepository.findById(id).orElseThrow()
     }
 
     fun update(customer: CustomerModel){
-        return customers.filter{ it.id == customer.id }.first().let {
-            it.name = customer.name;
-            it.email = customer.email;
+
+        if(!customerRepository.existsById(customer.id!!)){
+            throw Exception()
         }
+        else{
+            customerRepository.save(customer)
+        }
+
     }
+
     fun delete(id:Int){
-        customers.removeIf{it.id == id}
+        val customer = getCustomerById(id)
+
+        bookService.deleteByCustomer(customer)
+
+        customerRepository.deleteById(id)
     }
+
 
 }
