@@ -2,7 +2,7 @@ package com.mercadolivro.repository
 
 import com.mercadolivro.model.BookModel
 import com.mercadolivro.model.CustomerModel
-import enums.BookStatus
+import com.mercadolivro.enums.BookStatus
 import org.springframework.data.repository.CrudRepository
 
 interface BookRepository : CrudRepository<BookModel,Int> {

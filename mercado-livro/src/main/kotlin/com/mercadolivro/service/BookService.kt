@@ -3,7 +3,7 @@ package com.mercadolivro.service
 import com.mercadolivro.model.BookModel
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.BookRepository
-import enums.BookStatus
+import com.mercadolivro.enums.BookStatus
 import org.springframework.stereotype.Service
 
 @Service
