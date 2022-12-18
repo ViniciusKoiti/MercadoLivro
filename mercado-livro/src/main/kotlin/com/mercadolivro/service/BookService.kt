@@ -14,10 +14,10 @@ class BookService(
 ) {
     fun getAll(name: String?, pageable: Pageable): Page<BookModel> {
         name?.let{
-            bookRepository.findByNameContaining(name)
+            bookRepository.findByNameContaining(name,pageable)
         }
 
-        return bookRepository.findByStatus(BookStatus.ATIVO)
+        return bookRepository.findByStatus(BookStatus.ATIVO,pageable)
 
     }
 
@@ -28,8 +28,8 @@ class BookService(
     fun getBookById(id:Int): BookModel {
         return bookRepository.findById(id).orElseThrow()
     }
-    fun getActives(): Page<BookModel> {
-        return bookRepository.findByStatus(BookStatus.ATIVO)
+    fun getActives(pageable: Pageable): Page<BookModel> {
+        return bookRepository.findByStatus(BookStatus.ATIVO,pageable)
     }
 
     fun update(book: BookModel){

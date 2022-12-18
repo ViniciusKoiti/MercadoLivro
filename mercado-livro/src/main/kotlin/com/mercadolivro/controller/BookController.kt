@@ -23,17 +23,17 @@ class BookController (
     fun getAll(@RequestParam name:String?,pageable: Pageable): Page<BookResponse> {
         return bookService.getAll(name,pageable).map{
             it.toResponse(it)
-        };
+        }
     }
 
     @GetMapping("/active")
-    fun getActives():Page<BookModel>{
-        return bookService.getActives();
+    fun getActives(pageable: Pageable):Page<BookModel>{
+        return bookService.getActives(pageable)
     }
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id:Int): BookResponse {
-        return bookService.getBookById(id).toResponse(bookService.getBookById(id));
+        return bookService.getBookById(id).toResponse(bookService.getBookById(id))
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -54,7 +54,7 @@ class BookController (
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id:Int){
-        return bookService.delete(id);
+        return bookService.delete(id)
     }
 
 

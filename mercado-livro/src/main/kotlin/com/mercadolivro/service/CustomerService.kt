@@ -15,7 +15,7 @@ class CustomerService(
 
     fun getAll(name:String?,pageable:Pageable): Page<CustomerModel> {
         name?.let{
-            customerRepository.findByNameContaining(name)
+            customerRepository.findByNameContaining(name,pageable)
         }
 
         return customerRepository.findAll(pageable)
