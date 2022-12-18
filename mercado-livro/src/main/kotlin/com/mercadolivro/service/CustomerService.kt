@@ -2,6 +2,8 @@ package com.mercadolivro.service
 
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,12 +13,12 @@ class CustomerService(
         ) {
 
 
-    fun getAll(name:String?): List<CustomerModel> {
+    fun getAll(name:String?,pageable:Pageable): Page<CustomerModel> {
         name?.let{
             customerRepository.findByNameContaining(name)
         }
 
-        return customerRepository.findAll().toList()
+        return customerRepository.findAll(pageable)
 
     }
 

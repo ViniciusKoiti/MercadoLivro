@@ -2,10 +2,14 @@ package com.mercadolivro.controller
 
 import com.mercadolivro.controller.request.PostBookRequest
 import com.mercadolivro.controller.request.PutBookRequest
+import com.mercadolivro.controller.response.BookResponse
 import com.mercadolivro.extension.toBookModel
+import com.mercadolivro.extension.toResponse
 import com.mercadolivro.model.BookModel
 import com.mercadolivro.service.BookService
 import com.mercadolivro.service.CustomerService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -16,18 +20,20 @@ class BookController (
         val customerService : CustomerService
         ){
     @GetMapping
-    fun getAll(@RequestParam name:String?): List<BookModel> {
-        return bookService.getAll(name);
+    fun getAll(@RequestParam name:String?,pageable: Pageable): Page<BookResponse> {
+        return bookService.getAll(name,pageable).map{
+            it.toResponse(it)
+        };
     }
 
     @GetMapping("/active")
-    fun getActives():List<BookModel>{
+    fun getActives():Page<BookModel>{
         return bookService.getActives();
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id:Int): BookModel {
-        return bookService.getBookById(id);
+    fun getCustomer(@PathVariable id:Int): BookResponse {
+        return bookService.getBookById(id).toResponse(bookService.getBookById(id));
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
