@@ -1,5 +1,7 @@
 package com.mercadolivro.service
 
+import com.mercadolivro.enums.Errors
+import com.mercadolivro.exception.NotFoundException
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
 import org.springframework.data.domain.Page
@@ -33,7 +35,7 @@ class CustomerService(
     fun update(customer: CustomerModel){
 
         if(!customerRepository.existsById(customer.id!!)){
-            throw Exception()
+            throw NotFoundException(Errors.ML201.message.format(customer.id),Errors.ML201.code)
         }
         else{
             customerRepository.save(customer)

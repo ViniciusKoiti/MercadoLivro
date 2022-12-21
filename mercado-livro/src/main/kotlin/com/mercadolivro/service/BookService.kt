@@ -4,6 +4,8 @@ import com.mercadolivro.model.BookModel
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.BookRepository
 import com.mercadolivro.enums.BookStatus
+import com.mercadolivro.enums.Errors
+import com.mercadolivro.exception.NotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -35,7 +37,7 @@ class BookService(
     fun update(book: BookModel){
 
         if(!bookRepository.existsById(book.id!!)){
-            throw Exception()
+            throw NotFoundException(Errors.ML101.message.format(book.id),Errors.ML101.code)
         }
         else{
             bookRepository.save(book)
