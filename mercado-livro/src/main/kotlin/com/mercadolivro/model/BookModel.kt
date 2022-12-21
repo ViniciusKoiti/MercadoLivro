@@ -1,6 +1,8 @@
 package com.mercadolivro.model
 
 import com.mercadolivro.enums.BookStatus
+import com.mercadolivro.enums.Errors
+import com.mercadolivro.exception.BadResponseException
 import javax.persistence.*
 
 @Entity(name = "book")
@@ -24,7 +26,7 @@ data class BookModel(
         var status: BookStatus? = null
                 set(value){
                         if(field == BookStatus.CANCELADO || field == BookStatus.DELETADO){
-                                throw Exception("")
+                                throw BadResponseException(Errors.ML102.message.format(id),Errors.ML102.code)
                         }
 
                         field = value

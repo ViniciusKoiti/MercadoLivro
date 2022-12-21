@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("customers")
@@ -23,32 +24,32 @@ class CustomerController(
     fun getAll(@RequestParam name:String?,pageable: Pageable): Page<CustomerResponse> {
         return customerService.getAll(name,pageable).map{
             it.toResponse(it)
-        };
+        }
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody customer: PostCustomerRequest){
-        return customerService.create(customer.toCustomerModel());
+    fun create(@RequestBody @Valid customer: PostCustomerRequest){
+        return customerService.create(customer.toCustomerModel())
     }
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id:Int):CustomerResponse{
-        return customerService.getCustomerById(id).toResponse(customerService.getCustomerById(id));
+        return customerService.getCustomerById(id).toResponse(customerService.getCustomerById(id))
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id:Int,@RequestBody customer: PutCustomerRequest){
-        val customerDb = customerService.getCustomerById(id);
+    fun update(@PathVariable @Valid id:Int,@RequestBody customer: PutCustomerRequest){
+        val customerDb = customerService.getCustomerById(id)
 
-        return customerService.update(customer.toCustomerModel(customerDb));
+        return customerService.update(customer.toCustomerModel(customerDb))
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id:Int){
-        return customerService.delete(id);
+        return customerService.delete(id)
     }
 
 }
