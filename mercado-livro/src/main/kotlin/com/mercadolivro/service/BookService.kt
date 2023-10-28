@@ -28,7 +28,9 @@ class BookService(
     }
 
     fun getBookById(id:Int): BookModel {
-        return bookRepository.findById(id).orElseThrow()
+        return bookRepository.findById(id).orElseThrow(
+                { NoSuchElementException("Customer with ID $id not found") }
+        )
     }
     fun getActives(pageable: Pageable): Page<BookModel> {
         return bookRepository.findByStatus(BookStatus.ATIVO,pageable)

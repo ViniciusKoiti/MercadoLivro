@@ -29,7 +29,8 @@ class CustomerService(
     }
 
     fun getCustomerById(id:Int):CustomerModel{
-        return customerRepository.findById(id).orElseThrow()
+        return customerRepository.findById(id)
+                .orElseThrow( { NoSuchElementException("Customer with ID $id not found") })
     }
 
     fun update(customer: CustomerModel){
